@@ -25,7 +25,15 @@ function App() {
   //     setMovies(transformedMovies);
   //   })
   // }
-
+  const handleSaveToPC = (jsonData,filename) => {
+    const fileData = JSON.stringify(jsonData);
+    const blob = new Blob([fileData], {type: "text/plain"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = `${filename}.json`;
+    link.href = url;
+    link.click();
+  }
 
   async function fetchMovies(){
     setIsLoading(true);
@@ -42,6 +50,7 @@ function App() {
         
       );
       console.log(transformedMovies)
+      handleSaveToPC(data,'abcd');
       setMovies(transformedMovies);
       setIsLoading(false);
   }
